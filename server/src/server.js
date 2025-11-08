@@ -6,6 +6,10 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 
+// Import routes
+import authRoutes from "./routes/auth.js";
+import shirtRoutes from "./routes/shirts.js";
+
 // Load environment variables
 dotenv.config();
 
@@ -21,7 +25,7 @@ app.use(helmet());
 // CORS Configuration
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   })
 );
@@ -47,22 +51,26 @@ app.get("/", (req, res) => {
   });
 });
 
-// 404 Handler (Express 5 uyumlu)
-app.use(/.*/, (req, res) => {
+// API Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/shirts", shirtRoutes);
+
+// 404 Handler
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: "Route not found",
   });
 });
 
-// API Routes (will be added later)
-// app.use('/api/auth', authRoutes);
-// app.use('/api/shirts', shirtRoutes);
-// app.use('/api/wishlist', wishlistRoutes);
-// app.use('/api/stats', statsRoutes);
-
-// Error Handler Middleware (will be added later)
-// app.use(errorHandler);
+// Error Handler Middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "Server Error",
+  });
+});
 
 // Start Server
 const PORT = process.env.PORT || 5000;
