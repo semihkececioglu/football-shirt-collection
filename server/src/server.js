@@ -26,11 +26,13 @@ const app = express();
 app.use(helmet());
 
 // CORS Configuration
+const allowedOrigins = ["http://localhost:5173", process.env.CLIENT_URL];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
-  })
+  }),
 );
 
 // Body Parser Middleware
@@ -109,7 +111,7 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(
-    `🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
+    `🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`,
   );
   console.log(`📍 API URL: http://localhost:${PORT}`);
 });
