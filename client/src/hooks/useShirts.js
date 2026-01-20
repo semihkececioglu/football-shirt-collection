@@ -1,11 +1,33 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import shirtService from "../services/shirtService";
-import { toast } from "react-hot-toast";
 
 export const useShirts = (filters = {}) => {
   return useQuery({
-    queryKey: ["shirts", filters],
+    queryKey: [
+      "shirts",
+      filters.search,
+      filters.team,
+      filters.type,
+      filters.season,
+      filters.condition,
+      filters.brand,
+      filters.competition,
+      filters.size,
+      filters.color,
+      filters.isFavorite,
+      filters.signed,
+      filters.matchWorn,
+      filters.playerIssue,
+      filters.dateFrom,
+      filters.dateTo,
+      filters.sort,
+      filters.page,
+      filters.limit,
+    ],
     queryFn: () => shirtService.getShirts(filters),
+    placeholderData: (previousData) => previousData,
+    staleTime: 60000, // Consider data fresh for 1 minute
+    gcTime: 300000, // Keep in cache for 5 minutes
   });
 };
 
@@ -24,10 +46,6 @@ export const useCreateShirt = () => {
     mutationFn: shirtService.createShirt,
     onSuccess: () => {
       queryClient.invalidateQueries(["shirts"]);
-      toast.success("Shirt added successfully!");
-    },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || "Failed to add shirt");
     },
   });
 };
@@ -39,10 +57,6 @@ export const useUpdateShirt = () => {
     mutationFn: ({ id, formData }) => shirtService.updateShirt(id, formData),
     onSuccess: () => {
       queryClient.invalidateQueries(["shirts"]);
-      toast.success("Shirt updated successfully!");
-    },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || "Failed to update shirt");
     },
   });
 };
@@ -54,10 +68,6 @@ export const useDeleteShirt = () => {
     mutationFn: shirtService.deleteShirt,
     onSuccess: () => {
       queryClient.invalidateQueries(["shirts"]);
-      toast.success("Shirt deleted successfully!");
-    },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || "Failed to delete shirt");
     },
   });
 };
@@ -70,9 +80,6 @@ export const useToggleFavorite = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["shirts"]);
     },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || "Failed to update favorite");
-    },
   });
 };
 
@@ -80,5 +87,7 @@ export const useFilterOptions = () => {
   return useQuery({
     queryKey: ["filterOptions"],
     queryFn: shirtService.getFilterOptions,
+    staleTime: 300000, // Consider fresh for 5 minutes
+    gcTime: 600000, // Keep in cache for 10 minutes
   });
 };

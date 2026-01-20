@@ -1,18 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, forwardRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useDebounce } from "@/hooks/useDebounce";
 
-const SearchBar = ({ onSearch, defaultValue = "" }) => {
+const Spinner = () => (
+  <div className="w-4 h-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600 dark:border-slate-600 dark:border-t-slate-300" />
+);
+
+const SearchBar = forwardRef(({ onSearch, defaultValue = "", isLoading = false }, ref) => {
+  const { t } = useTranslation();
   const [search, setSearch] = useState(defaultValue);
+  const debouncedSearch = useDebounce(search, 300);
+  const isDebouncing = search !== debouncedSearch;
 
+  // Update parent when debounced value changes
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onSearch(search);
-    }, 500); // Debounce 500ms
-
-    return () => clearTimeout(timer);
-  }, [search, onSearch]);
+    onSearch(debouncedSearch);
+  }, [debouncedSearch, onSearch]);
 
   const handleClear = () => {
     setSearch("");
@@ -20,10 +26,17 @@ const SearchBar = ({ onSearch, defaultValue = "" }) => {
 
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+      {isDebouncing || isLoading ? (
+        <div className="absolute left-3 top-1/2 -translate-y-1/2">
+          <Spinner />
+        </div>
+      ) : (
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+      )}
       <Input
+        ref={ref}
         type="text"
-        placeholder="Search by team, player, or competition..."
+        placeholder={t("collection.searchPlaceholder")}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="pl-10 pr-10"
@@ -40,6 +53,8 @@ const SearchBar = ({ onSearch, defaultValue = "" }) => {
       )}
     </div>
   );
-};
+});
+
+SearchBar.displayName = "SearchBar";
 
 export default SearchBar;

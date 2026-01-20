@@ -5,9 +5,9 @@ const shirtService = {
   getShirts: async (filters = {}) => {
     const params = new URLSearchParams();
 
-    Object.keys(filters).forEach((key) => {
-      if (filters[key]) {
-        params.append(key, filters[key]);
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        params.append(key, value);
       }
     });
 

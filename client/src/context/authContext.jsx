@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, useMemo, useCallback } from "react";
 import authService from "../services/authService";
 
 const AuthContext = createContext();
@@ -24,31 +24,51 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const register = async (userData) => {
+  const register = useCallback(async (userData) => {
     const data = await authService.register(userData);
     setUser(data.data);
     return data;
-  };
+  }, []);
 
-  const login = async (credentials) => {
+  const login = useCallback(async (credentials) => {
     const data = await authService.login(credentials);
     setUser(data.data);
     return data;
-  };
+  }, []);
 
-  const logout = () => {
+  const googleAuth = useCallback(async (credential) => {
+    const data = await authService.googleAuth(credential);
+    setUser(data.data);
+    return data;
+  }, []);
+
+  const setUsername = useCallback(async (username) => {
+    const data = await authService.setUsername(username);
+    setUser(prev => ({ ...prev, ...data.data }));
+    return data;
+  }, []);
+
+  const updateUser = useCallback((userData) => {
+    setUser(prev => ({ ...prev, ...userData }));
+  }, []);
+
+  const logout = useCallback(() => {
     authService.logout();
     setUser(null);
-  };
+  }, []);
 
-  const value = {
+  const value = useMemo(() => ({
     user,
     loading,
     register,
     login,
+    googleAuth,
+    setUsername,
+    updateUser,
     logout,
     isAuthenticated: !!user,
-  };
+    needsUsername: user && !user.isProfileComplete,
+  }), [user, loading, register, login, googleAuth, setUsername, updateUser, logout]);
 
   return (
     <AuthContext.Provider value={value}>

@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/Users.js";
 
 export const protect = async (req, res, next) => {
+  console.log("🔐 Auth middleware called for:", req.method, req.path);
   let token;
 
   // Check for token in header
@@ -19,9 +20,10 @@ export const protect = async (req, res, next) => {
       // Get user from token
       req.user = await User.findById(decoded.id).select("-password");
 
+      console.log("✅ Auth successful for user:", req.user?._id);
       next();
     } catch (error) {
-      console.error(error);
+      console.error("❌ Auth error:", error.message);
       res.status(401).json({
         success: false,
         message: "Not authorized, token failed",
@@ -30,6 +32,7 @@ export const protect = async (req, res, next) => {
   }
 
   if (!token) {
+    console.log("❌ No token provided");
     res.status(401).json({
       success: false,
       message: "Not authorized, no token",

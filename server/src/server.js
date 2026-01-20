@@ -4,11 +4,14 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
 
 // Import routes
 import authRoutes from "./routes/auth.js";
 import shirtRoutes from "./routes/shirts.js";
+import statsRoutes from "./routes/stats.js";
+import wishlistRoutes from "./routes/wishlist.js";
 
 // Load environment variables
 dotenv.config();
@@ -42,6 +45,33 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// Rate Limiting - General API
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // 100 requests per window
+  message: {
+    success: false,
+    message: "Too many requests, please try again later.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Rate Limiting - Auth routes (stricter)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // 10 requests per window (login/register attempts)
+  message: {
+    success: false,
+    message: "Too many authentication attempts, please try again later.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply general rate limiter to all API routes
+app.use("/api/", generalLimiter);
+
 // Test Route
 app.get("/", (req, res) => {
   res.json({
@@ -52,8 +82,10 @@ app.get("/", (req, res) => {
 });
 
 // API Routes
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/shirts", shirtRoutes);
+app.use("/api/stats", statsRoutes);
+app.use("/api/wishlist", wishlistRoutes);
 
 // 404 Handler
 app.use((req, res) => {

@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext";
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, needsUsername } = useAuth();
 
   if (loading) {
     return (
@@ -15,7 +15,16 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  // Redirect to username setup if profile is not complete
+  if (needsUsername) {
+    return <Navigate to="/setup-username" />;
+  }
+
+  return <div className="pb-20 md:pb-0">{children}</div>;
 };
 
 export default ProtectedRoute;

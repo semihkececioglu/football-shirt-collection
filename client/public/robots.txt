@@ -1,0 +1,25 @@
+# Robots.txt for Football Shirt Collection
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Disallow private/dynamic routes
+Disallow: /api/
+Disallow: /collection/*/edit
+Disallow: /setup-username
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /settings
+
+# Allow public pages
+Allow: /
+Allow: /login
+Allow: /register
+Allow: /contact
+
+# Sitemap location
+Sitemap: https://footballshirtcollection.com/sitemap.xml
+
+# Crawl delay (optional - be nice to servers)
+Crawl-delay: 1

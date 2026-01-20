@@ -28,7 +28,7 @@ const shirtSchema = new mongoose.Schema(
     type: {
       type: String,
       required: [true, "Please add shirt type"],
-      enum: ["home", "away", "third", "goalkeeper", "special"],
+      enum: ["home", "away", "third", "fourth", "fifth", "goalkeeper", "special", "anniversary"],
       default: "home",
     },
     brand: {
@@ -37,13 +37,13 @@ const shirtSchema = new mongoose.Schema(
     },
     size: {
       type: String,
-      enum: ["XS", "S", "M", "L", "XL", "XXL", "XXXL", ""],
+      enum: ["XS", "S", "M", "L", "XL", "XXL", "XXXL", "+4XL", ""],
       default: "M",
     },
     condition: {
       type: String,
       required: [true, "Please add condition"],
-      enum: ["mint", "excellent", "good", "fair", "poor"],
+      enum: ["brandNewTags", "brandNew", "mint", "excellent", "good", "fair", "poor"],
       default: "good",
     },
     playerName: {
@@ -69,8 +69,31 @@ const shirtSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    playerIssue: {
+      type: Boolean,
+      default: false,
+    },
+    color: {
+      type: String,
+      enum: [
+        "",
+        "red",
+        "blue",
+        "yellow",
+        "green",
+        "black",
+        "white",
+        "orange",
+        "purple",
+        "pink",
+        "navy",
+        "gray",
+        "gold",
+      ],
+      default: "",
+    },
     images: {
-      type: [String],
+      type: [mongoose.Schema.Types.Mixed], // Supports both string (legacy) and { url, thumbnail } (new)
       default: [],
     },
     purchaseDate: {
