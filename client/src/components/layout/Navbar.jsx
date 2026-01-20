@@ -25,7 +25,7 @@ import {
   DropdownMenuHighlight,
   DropdownMenuHighlightItem,
 } from "@/components/animate-ui/primitives/radix/dropdown-menu";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext";
 import { useTheme } from "@/context/ThemeContext";
 import { cn } from "@/lib/utils";
 import { CommandPalette } from "./CommandPalette";
