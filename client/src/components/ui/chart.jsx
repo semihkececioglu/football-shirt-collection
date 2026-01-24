@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Tooltip as ChartTooltip, Legend as ChartLegend } from "recharts";
+import * as RechartsPrimitive from "recharts";
 
 import { cn } from "@/lib/utils";
 
@@ -75,6 +75,8 @@ ${colorConfig
 };
 
 
+
+const ChartTooltip = RechartsPrimitive.Tooltip;
 
 const ChartTooltipContent = React.forwardRef(
   (
@@ -218,7 +220,7 @@ const ChartTooltipContent = React.forwardRef(
 );
 ChartTooltipContent.displayName = "ChartTooltipContent";
 
-
+const ChartLegend = RechartsPrimitive.Legend;
 
 const ChartLegendContent = React.forwardRef(
   (
