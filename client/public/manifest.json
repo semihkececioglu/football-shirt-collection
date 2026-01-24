@@ -9,14 +9,5 @@
   "background_color": "#FDFBF7",
   "theme_color": "#FDFBF7",
   "categories": ["lifestyle", "sports", "utilities"],
-  "screenshots": [
-    {
-      "src": "/app-screenshot.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Football Shirt Collection Dashboard"
-    }
-  ],
   "prefer_related_applications": false
 }

@@ -66,9 +66,14 @@ export default defineConfig({
             return "animation-vendor";
           }
 
-          // Charts - lazy loaded with Statistics page
-          if (id.includes("recharts") || id.includes("d3-")) {
-            return "chart-vendor";
+          // Charts - include with react-vendor to avoid forwardRef issues
+          if (id.includes("recharts")) {
+            return "react-vendor";
+          }
+
+          // D3 utilities - separate chunk
+          if (id.includes("d3-")) {
+            return "d3-vendor";
           }
 
           // Three.js - lazy loaded with landing page
