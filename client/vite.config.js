@@ -41,59 +41,34 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Core React ecosystem - loaded immediately
+manualChunks: (id) => {
+          // React and all React-dependent libraries together
           if (
             id.includes("node_modules/react/") ||
             id.includes("node_modules/react-dom/") ||
-            id.includes("node_modules/react-router")
+            id.includes("node_modules/react-router") ||
+            id.includes("@radix-ui") ||
+            id.includes("@tanstack/react-query") ||
+            id.includes("framer-motion") ||
+            id.includes("/motion/") ||
+            id.includes("recharts") ||
+            id.includes("i18next") ||
+            id.includes("@dnd-kit")
           ) {
             return "react-vendor";
           }
 
-          // UI component primitives (Radix)
-          if (id.includes("@radix-ui")) {
-            return "radix-vendor";
-          }
-
-          // Query/state management
-          if (id.includes("@tanstack/react-query")) {
-            return "query-vendor";
-          }
-
-          // Animation libraries - lazy loaded with pages that use them
-          if (id.includes("framer-motion") || id.includes("/motion/")) {
-            return "animation-vendor";
-          }
-
-          // Charts - include with react-vendor to avoid forwardRef issues
-          if (id.includes("recharts")) {
-            return "react-vendor";
-          }
-
-          // D3 utilities - separate chunk
+          // Independent libraries - no React dependency
           if (id.includes("d3-")) {
             return "d3-vendor";
           }
 
-          // Three.js - lazy loaded with landing page
           if (id.includes("three")) {
             return "three-vendor";
           }
 
-          // i18n
-          if (id.includes("i18next")) {
-            return "i18n-vendor";
-          }
-
-          // Date utilities
           if (id.includes("date-fns")) {
             return "date-vendor";
-          }
-
-          // DnD kit - lazy loaded with AddShirt page
-          if (id.includes("@dnd-kit")) {
-            return "dnd-vendor";
           }
         },
       },
