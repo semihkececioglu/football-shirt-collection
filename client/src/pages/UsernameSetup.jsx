@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "motion/react";
 import { useAuth } from "../context/authContext";
+import { useOnboarding } from "../context/OnboardingContext";
 import authService from "../services/authService";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/auth/FormField";
@@ -28,6 +29,7 @@ const usernameSchema = z.object({
 const UsernameSetup = () => {
   const { t } = useTranslation();
   const { user, setUsername: setUserUsername } = useAuth();
+  const { triggerOnboarding } = useOnboarding();
   const navigate = useNavigate();
   const [isChecking, setIsChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState(null);
@@ -88,6 +90,7 @@ const UsernameSetup = () => {
     try {
       await setUserUsername(data.username);
       toast.success(t("auth.usernameSet") || "Username set successfully!");
+      triggerOnboarding();
       navigate("/collection");
     } catch (error) {
       toast.error(error.response?.data?.message || t("auth.usernameSetFailed") || "Failed to set username");
