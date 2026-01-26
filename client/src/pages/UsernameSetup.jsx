@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import SEO from "@/components/common/SEO";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -112,6 +113,7 @@ const UsernameSetup = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      <SEO title="Choose Username" description="Set up your username for Football Shirt Collection." noindex={true} />
       {/* Full Page Liquid Ether Background */}
       <div className="absolute inset-0 bg-slate-900">
         <LiquidEther

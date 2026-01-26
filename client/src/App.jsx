@@ -49,12 +49,12 @@ const AuthPageSkeleton = () => (
 
 // Landing page skeleton
 const LandingPageSkeleton = () => (
-  <div className="min-h-screen bg-slate-50 dark:bg-slate-900 animate-pulse">
-    <div className="h-16 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700" />
+  <div className="min-h-screen bg-[#FDFBF7] dark:bg-stone-900 animate-pulse">
+    <div className="h-16 bg-[#FDFBF7] dark:bg-stone-900" />
     <div className="h-[80vh] flex items-center justify-center">
       <div className="text-center">
-        <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded w-96 mx-auto mb-4" />
-        <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded w-64 mx-auto" />
+        <div className="h-12 bg-stone-200 dark:bg-stone-700 rounded w-96 mx-auto mb-4" />
+        <div className="h-6 bg-stone-200 dark:bg-stone-700 rounded w-64 mx-auto" />
       </div>
     </div>
   </div>

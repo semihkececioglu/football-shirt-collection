@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SEO from "@/components/common/SEO";
+import { trackSearch } from "@/lib/firebase";
 import {
   Plus,
   Grid3x3,
@@ -196,6 +197,7 @@ const Collection = () => {
   }, [searchParams, setSearchParams]);
 
   const handleSearch = useCallback((search) => {
+    if (search) trackSearch(search);
     setFilters((prev) => ({ ...prev, search, page: 1 }));
   }, []);
 

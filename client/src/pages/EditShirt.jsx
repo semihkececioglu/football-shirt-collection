@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import SEO from "@/components/common/SEO";
 import { arrayMove } from "@dnd-kit/sortable";
 import { motion } from "motion/react";
 import {
@@ -366,6 +367,7 @@ const EditShirt = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <SEO title="Edit Shirt" description="Edit your football shirt details." noindex={true} />
       <Navbar />
 
       {/* Form */}

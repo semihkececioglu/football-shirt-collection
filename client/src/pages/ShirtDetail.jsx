@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import SEO from "@/components/common/SEO";
 import { motion } from "motion/react";
 import confetti from "canvas-confetti";
 import {
@@ -176,6 +177,11 @@ const ShirtDetail = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+      <SEO
+        title={shirt ? `${shirt.teamName} ${shirt.season}` : "Shirt Detail"}
+        description={shirt ? `${shirt.teamName} ${shirt.season} ${shirt.type} football shirt.` : "View shirt details."}
+        noindex={true}
+      />
       <Navbar />
 
       {/* Header */}

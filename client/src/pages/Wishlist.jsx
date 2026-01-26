@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SEO from "@/components/common/SEO";
+import { trackAddToWishlist } from "@/lib/firebase";
 import { motion, AnimatePresence } from "motion/react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { arrayMove } from "@dnd-kit/sortable";
@@ -339,6 +340,7 @@ const Wishlist = () => {
       } else {
         await createItem.mutateAsync(formData);
         toast.success("Item added to wishlist");
+        trackAddToWishlist({ team: formData.teamName, priority: formData.priority });
       }
       setDialogOpen(false);
     } catch (error) {
