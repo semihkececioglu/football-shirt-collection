@@ -19,7 +19,7 @@ Allow: /register
 Allow: /contact
 
 # Sitemap location
-Sitemap: https://footballshirtcollection.com/sitemap.xml
+Sitemap: https://footballshirtcollection.app/sitemap.xml
 
 # Crawl delay (optional - be nice to servers)
 Crawl-delay: 1

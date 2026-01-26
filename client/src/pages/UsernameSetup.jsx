@@ -168,7 +168,7 @@ const UsernameSetup = () => {
             {/* Preview URL */}
             <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-3 mb-6">
               <p className="text-sm text-slate-500 dark:text-slate-400 text-center">
-                footballshirts.app/profile/
+                footballshirtcollection.app/profile/
                 <span className="font-medium text-slate-900 dark:text-white">
                   {watchUsername || "username"}
                 </span>

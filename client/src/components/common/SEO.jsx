@@ -9,7 +9,7 @@ const SEO = ({
   noindex = false,
 }) => {
   const siteTitle = "Football Shirt Collection";
-  const siteUrl = "https://footballshirtcollection.com";
+  const siteUrl = "https://footballshirtcollection.app";
   const defaultDescription = "Track, organize, and showcase your football shirt collection with detailed statistics, wishlist features, and beautiful visualization.";
 
   const fullTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} - Track Your Kit Collection`;
