@@ -111,6 +111,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
 manualChunks: (id) => {
+          // Recharts - lazy loaded only for Statistics page
+          if (id.includes("recharts")) {
+            return "recharts-vendor";
+          }
+
           // React and all React-dependent libraries together
           if (
             id.includes("node_modules/react/") ||
@@ -120,7 +125,6 @@ manualChunks: (id) => {
             id.includes("@tanstack/react-query") ||
             id.includes("framer-motion") ||
             id.includes("/motion/") ||
-            id.includes("recharts") ||
             id.includes("i18next") ||
             id.includes("@dnd-kit")
           ) {

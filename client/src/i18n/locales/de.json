@@ -111,6 +111,7 @@
     "displayCurrency": "Anzeigewährung",
     "language": "Sprache",
     "languageDesc": "Wählen Sie Ihre bevorzugte Sprache",
+    "selectLanguage": "Sprache auswählen",
     "onboarding": "Einführung",
     "onboardingDesc": "App-Einführung erneut ansehen",
     "restartOnboarding": "Einführung neu starten",

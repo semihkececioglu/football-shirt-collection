@@ -80,8 +80,8 @@ const HeroSection = () => {
           className="inline-flex items-center gap-2.5 bg-stone-100/80 dark:bg-stone-800/80 backdrop-blur-sm rounded-full px-4 py-2 mb-8"
         >
           <div className="relative w-2 h-2">
-            <span className="absolute inset-0 bg-emerald-500/30 rounded-full animate-ping" />
-            <span className="absolute inset-0 bg-emerald-500/20 rounded-full animate-pulse" />
+            <span className="absolute inset-0 bg-emerald-500/30 rounded-full animate-ping [animation-delay:2s]" />
+            <span className="absolute inset-0 bg-emerald-500/20 rounded-full animate-pulse [animation-delay:2s]" />
             <span className="absolute inset-0 bg-emerald-500 rounded-full" />
           </div>
           <span className="text-sm text-stone-600 dark:text-stone-400 font-medium tracking-wide">
@@ -160,7 +160,7 @@ const HeroSection = () => {
         transition={{ delay: 1.2, duration: 0.8 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
       >
-        <ChevronDown className="w-6 h-6 text-stone-400 animate-bounce" />
+        <ChevronDown className="w-6 h-6 text-stone-400 animate-bounce [animation-delay:3s]" />
       </motion.div>
     </section>
   );

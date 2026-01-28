@@ -111,6 +111,7 @@
     "displayCurrency": "Display Currency",
     "language": "Language",
     "languageDesc": "Select your preferred language",
+    "selectLanguage": "Select Language",
     "onboarding": "Onboarding",
     "onboardingDesc": "Revisit the app introduction",
     "restartOnboarding": "Restart Onboarding Tour",

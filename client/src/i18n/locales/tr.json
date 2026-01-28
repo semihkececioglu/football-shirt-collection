@@ -111,6 +111,7 @@
     "displayCurrency": "Görüntülenen Para Birimi",
     "language": "Dil",
     "languageDesc": "Tercih ettiğiniz dili seçin",
+    "selectLanguage": "Dil Seçin",
     "onboarding": "Tanıtım",
     "onboardingDesc": "Uygulama tanıtımını tekrar görüntüleyin",
     "restartOnboarding": "Tanıtımı Tekrar Başlat",

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MoreHorizontal, CalendarDays, ChevronDown } from "lucide-react";
 import { format } from "date-fns";
+import { enUS, tr } from "date-fns/locale";
 import { motion, AnimatePresence } from "motion/react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { Button } from "@/components/ui/button";
@@ -15,9 +16,17 @@ import {
   DropdownMenuContent,
 } from "@/components/animate-ui/primitives/radix/dropdown-menu";
 
+const locales = {
+  en: enUS,
+  tr: tr,
+};
+
 // Animated Date Range Popover Component
 function DateRangePopover({ dateFromObj, dateToObj, onDateFromChange, onDateToChange }) {
   const [open, setOpen] = useState(false);
+  const { i18n } = useTranslation();
+  const currentYear = new Date().getFullYear();
+  const locale = locales[i18n.language] || enUS;
 
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
@@ -55,6 +64,12 @@ function DateRangePopover({ dateFromObj, dateToObj, onDateFromChange, onDateToCh
               align="start"
               sideOffset={8}
               onOpenAutoFocus={(e) => e.preventDefault()}
+              onInteractOutside={(e) => {
+                // Prevent closing when clicking inside Select dropdown
+                if (e.target?.closest('[role="listbox"]') || e.target?.closest('[data-radix-select-viewport]')) {
+                  e.preventDefault();
+                }
+              }}
             >
               <motion.div
                 initial={{ opacity: 0, y: -8, scale: 0.96 }}
@@ -80,6 +95,13 @@ function DateRangePopover({ dateFromObj, dateToObj, onDateFromChange, onDateToCh
                   }}
                   numberOfMonths={1}
                   className="p-3"
+                  captionLayout="dropdown-buttons"
+                  fromYear={1950}
+                  toYear={currentYear}
+                  locale={locale}
+                  formatters={{
+                    formatMonthCaption: (month) => format(month, "LLL", { locale }),
+                  }}
                 />
               </motion.div>
             </PopoverPrimitive.Content>

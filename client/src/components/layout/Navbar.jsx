@@ -33,6 +33,7 @@ import {
   Highlight,
   HighlightItem,
 } from "@/components/animate-ui/primitives/effects/highlight";
+import Logo from "@/components/common/Logo";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -102,16 +103,13 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20 gap-8">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3">
-              <ShirtIcon className="w-8 h-8 text-slate-900 dark:text-slate-100" />
-              <div className="flex flex-col">
-                <span className="font-bold text-xl text-slate-900 dark:text-slate-100 leading-tight">
-                  Football Shirts
-                </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 leading-tight">
-                  {t("onboarding.welcomeSubtitle")}
-                </span>
+            <Link to="/" className="flex items-center gap-3 shrink-0">
+              <div className="w-11 h-11 bg-slate-900 dark:bg-white rounded-xl flex items-center justify-center border border-white/20 dark:border-slate-900/20 shadow-sm shrink-0">
+                <Logo className="w-6 h-6 text-white dark:text-slate-900" />
               </div>
+              <span className="hidden sm:block font-display font-normal text-xl text-slate-900 dark:text-slate-100 tracking-tight whitespace-nowrap">
+                Football Shirt Collection
+              </span>
             </Link>
 
             {/* Navigation Links */}

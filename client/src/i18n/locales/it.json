@@ -111,6 +111,7 @@
     "displayCurrency": "Valuta di visualizzazione",
     "language": "Lingua",
     "languageDesc": "Seleziona la tua lingua preferita",
+    "selectLanguage": "Seleziona lingua",
     "onboarding": "Tutorial",
     "onboardingDesc": "Rivedi l'introduzione dell'app",
     "restartOnboarding": "Riavvia tutorial",
