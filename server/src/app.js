@@ -11,6 +11,9 @@ import shirtRoutes from "./routes/shirts.js";
 import statsRoutes from "./routes/stats.js";
 import wishlistRoutes from "./routes/wishlist.js";
 
+// Import Swagger
+import { swaggerUi, specs } from "./config/swagger.js";
+
 // Initialize Express app
 const app = express();
 
@@ -83,8 +86,15 @@ app.get("/", (req, res) => {
     message: "⚽ Football Shirt Collection API",
     version: "1.0.0",
     status: "Running",
+    docs: "/api-docs",
   });
 });
+
+// Swagger API Documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: "Football Shirt Collection API Docs",
+}));
 
 // API Routes
 app.use("/api/auth", authLimiter, authRoutes);
